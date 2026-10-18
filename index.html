@@ -56,7 +56,7 @@ return 'On '+formattedDate($('date').value)+' at '+formattedTime($('time').value
 }
 function customNarrative(){
 const values={date:formattedDate($('date').value),time:formattedTime($('time').value),officer:p($('officer').value,'officer name/rank/ID'),address:p($('address').value,'address'),reportingPerson:p($('customReporter').value,'reporting person'),victim:p($('customVictim').value,'victim')};
-return $('customBody').value.replace(/\\{(date|time|officer|address|reportingPerson|victim)\\}/g,(match,key)=>values[key]);
+return $('customBody').value.replace(/\{(date|time|officer|address|reportingPerson|victim)\}/g,(match,key)=>values[key]);
 }
 function insertCustom(value){
 const area=$('customBody');const a=area.selectionStart,b=area.selectionEnd;
