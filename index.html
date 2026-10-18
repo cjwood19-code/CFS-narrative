@@ -40,5 +40,7 @@ function update(){$('reporterNameWrap').hidden=$('kind').value!=='motor'||$('rep
 function reset(){for(const el of form.querySelectorAll('input:not([type=radio]),textarea'))el.value='';for(const el of form.querySelectorAll('select'))el.selectedIndex=0;document.querySelector('input[name="mode"][value="unknown"]').checked=true;$('count').value='2';rows();update()}
 form.addEventListener('input',update);form.addEventListener('change',update);$('count').addEventListener('change',()=>{rows();update()});$('clear').onclick=()=>{if(confirm('Clear all entered report information?')){reset();$('status').textContent='Form cleared.'}};
 $('copy').onclick=async()=>{let t=narrative();if(/\[[^\]]+\]/.test(t)&&!confirm('Narrative has incomplete fields. Copy and clear anyway?'))return;try{if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');await navigator.clipboard.writeText(t);reset();$('status').textContent='Narrative copied. All entered fields have been cleared.'}catch(e){$('status').textContent='Copy failed. No fields were cleared. Check clipboard permissions and HTTPS access.'}};
-window.addEventListener('pagehide',reset);rows();update();
+window.addEventListener('pagehide',reset);
+try { rows(); update(); }
+catch(error) { $('output').textContent='Unable to generate preview. Error: '+error.message; $('status').textContent='Please report this error to the template administrator.'; }
 </script></body></html>
